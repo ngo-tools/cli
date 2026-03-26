@@ -101,7 +101,7 @@ class NewCommand extends Command
         $output->writeln('<comment>Installing NGO.Tools starter package...</comment>');
 
         $result = $this->runProcess(
-            ['composer', 'require', 'ngotools/laravel-starter', '--quiet', '--no-interaction'],
+            ['composer', 'require', 'ngo-tools/sdk-laravel-starter', '--quiet', '--no-interaction'],
             $directory,
             $output,
         );
