@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NGO.Tools App</title>
+  <!-- iframe-resizer: automatic height adjustment -->
+  <script src="https://cdn.jsdelivr.net/npm/@iframe-resizer/child"></script>
+  <!-- NGO.Tools Bridge: loaded from the host instance -->
+  <script src="{{HOST_URL}}/sdk/bridge.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      padding: 1rem;
+      color: #1a1a2e;
+    }
+    html.dark body {
+      background: #1a1a2e;
+      color: #e0e0e0;
+    }
+    .card {
+      border: 1px solid #e5e7eb;
+      border-radius: 0.5rem;
+      padding: 1.5rem;
+    }
+    html.dark .card {
+      border-color: #374151;
+    }
+    h1 { font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem; }
+    p { color: #6b7280; }
+    html.dark p { color: #9ca3af; }
+    .badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      padding: 0.125rem 0.5rem;
+      border-radius: 9999px;
+      background: #dbeafe;
+      color: #1d4ed8;
+      margin-top: 0.75rem;
+    }
+    html.dark .badge { background: #1e3a5f; color: #93c5fd; }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="card">
+      <h1>Loading...</h1>
+    </div>
+  </div>
+
+  <script>
+    // Dev mode: if opened directly in browser (not in iframe), use mock data
+    NGOTools.enableDevMode();
+
+    NGOTools.onInit(function(state) {
+      document.getElementById('app').innerHTML =
+        '<div class="card">' +
+          '<h1>Hello ' + state.user.name + '!</h1>' +
+          '<p>Tenant: ' + state.tenantId + ' &middot; Locale: ' + state.locale + '</p>' +
+          '<span class="badge">' +
+            (state.context.entityType
+              ? state.context.entityType + ' #' + state.context.entityId
+              : 'No context') +
+          '</span>' +
+        '</div>';
+    });
+  </script>
+</body>
+</html>
